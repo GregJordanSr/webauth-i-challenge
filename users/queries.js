@@ -10,16 +10,21 @@ function find() {
     return db('users').select('id', 'username', 'password');
 }
 
-function findBy(user) {
-    return db('users').where(user);
+function findBy(id) {
+    return db('users')
+    .where({id})
+    .first();
 }
 
 function addUsers(user) {
    return db('users')
-    .insert(user, 'id')
+    .insert(user)
     .then(ids => {
-        const [user] = ids;
-        return findById(id);
+        console.log(ids)
+        const [id] = ids;
+        return findBy(id);
     })
 
 }
+
+
