@@ -9,7 +9,7 @@ const router = express.Router();
 
 
 router.get('/users', restrict, (req, res) => {
-    console.log(req.body)
+   
     queries
     .find()
     .then(users => {
@@ -23,7 +23,7 @@ module.exports = router;
 
 router.post('/login', (req, res) => {
     const { username, password } = req.body;
-
+    console.log(req.body, "login")
     queries
         .findBy({ username })
         .first()
@@ -42,8 +42,8 @@ router.post('/login', (req, res) => {
 
 router.post('/register', (req, res) => {
     const newUser = req.body;
-    
-    const hash = bcrypt.hashSync(newUser.password);
+    console.log(req.body, "body")
+    const hash = bcrypt.hashSync(newUser.password, 10);
     newUser.password = hash;
 
     queries.addUsers(newUser)

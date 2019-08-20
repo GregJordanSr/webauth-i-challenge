@@ -12,16 +12,16 @@ function find() {
 
 function findBy(id) {
     return db('users')
-    .where({id})
-    .first();
+    .where(id)
+    
 }
 
 function addUsers(user) {
    return db('users')
     .insert(user)
     .then(ids => {
-        console.log(ids)
-        const [id] = ids;
+       
+        const id = ids[0];
         return findBy(id);
     })
 

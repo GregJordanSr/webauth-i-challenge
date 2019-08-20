@@ -5,7 +5,7 @@ const queries = require('../users/queries');
  
 function restrict(req, res, next) {
     const {username, password } = req.headers;
-
+    console.log(username, password, "restrict")
     if (username && password) {
         queries
             .findBy({ username })
