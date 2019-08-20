@@ -3,7 +3,7 @@ const express = require('express');
 const queries = require('./queries');
 
 const bcrypt = require('bcryptjs');
-const auth = require('../auth/restrict');
+const restrict = require('../auth/restrict');
 
 const router = express.Router();
 
@@ -21,7 +21,7 @@ router.get('/users', restrict, (req, res) => {
 }) 
 module.exports = router; 
 
-router.post('/login', restrict, (req, res) => {
+router.post('/login', (req, res) => {
     const { username, password } = req.body;
 
     queries
@@ -40,7 +40,7 @@ router.post('/login', restrict, (req, res) => {
 
 })
 
-router.post('/register', restrict, (req, res) => {
+router.post('/register', (req, res) => {
     const newUser = req.body;
     
     const hash = bcrypt.hashSync(newUser.password);
