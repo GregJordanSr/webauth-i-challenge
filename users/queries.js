@@ -4,7 +4,8 @@ module.exports = {
     find,
     findBy,
     addUsers,
-    findByUser
+    findByUser,
+    findLoggedIn
 }
 
 function find() {
@@ -14,7 +15,6 @@ function find() {
 function findBy(id) {
     return db('users')
     .where({id})
-    
 }
 
 function addUsers(user) {
@@ -24,7 +24,6 @@ function addUsers(user) {
         const id = ids[0];
         return findBy(id);
     })
-
 }
 
 function findByUser(user) {
@@ -32,4 +31,10 @@ function findByUser(user) {
     .where(user)
 }
 
+function findLoggedIn(id) {
+    return db('users')
+    .where({ id})
+    .first()
+
+}
 

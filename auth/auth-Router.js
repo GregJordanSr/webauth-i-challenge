@@ -27,6 +27,7 @@ router.post('/login', (req, res) => {
         .then(user => {
             if (user && bcrypt.compareSync(password, user.password)) {
                 req.session.username = user.username;
+                req.session.uid = user.id;
                 res.status(200).json({ message: ` ${user.username} is logged in!!!`});
             } else {
                 res.status(401).json({ message: 'You shall not pass'});
@@ -36,6 +37,20 @@ router.post('/login', (req, res) => {
             res.status(500).json({ message: "Error with the server"});
         })
 
+})
+
+router.get('/logged-in', (req, res) => {
+    const id = req.session.uid;
+    
+    if (id) {
+        queries.findLoggedIn(id)
+            .then(user =>{
+                res.status(200).json(user)
+            })
+                
+    } else {
+        res.status(401).json({ message: 'Your not logged in!!!'})
+    }
 })
 
 // logout for the user
